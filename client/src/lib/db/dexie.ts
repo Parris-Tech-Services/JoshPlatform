@@ -3,7 +3,8 @@ import {
   PlatformMoveOp, 
   PlatformDecisionCard, 
   PlatformOpportunity, 
-  PlatformWeeklyReview 
+  PlatformWeeklyReview,
+  PlatformTask
 } from './types';
 
 export class JoshHubDatabase extends Dexie {
@@ -11,6 +12,7 @@ export class JoshHubDatabase extends Dexie {
   platformDecisionCards!: Table<PlatformDecisionCard>;
   platformOpportunities!: Table<PlatformOpportunity>;
   platformWeeklyReviews!: Table<PlatformWeeklyReview>;
+  platformTasks!: Table<PlatformTask>;
 
   constructor() {
     super('JoshHubDB');
@@ -19,7 +21,8 @@ export class JoshHubDatabase extends Dexie {
       platformMoveOps: '++id, status, dueDate, sortOrder, createdAt',
       platformDecisionCards: '++id, status, dueBy, createdAt',
       platformOpportunities: '++id, stage, expectedValuePerMonth, createdAt',
-      platformWeeklyReviews: '++id, weekStart, createdAt'
+      platformWeeklyReviews: '++id, weekStart, createdAt',
+      platformTasks: '++id, status, dueDate, linkedDecisionId, createdAt'
     });
   }
 }
