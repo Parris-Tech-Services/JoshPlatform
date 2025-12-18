@@ -3,6 +3,7 @@ import { moveOpsRepo } from './moveOpsRepoDexie';
 import { decisionCardsRepo } from './decisionCardsRepoDexie';
 import { opportunitiesRepo } from './opportunitiesRepoDexie';
 import { weeklyReviewsRepo } from './weeklyReviewsRepoDexie';
+import { tasksRepo } from './tasksRepoDexie';
 
 export async function seedPlatformData() {
   const count = await db.platformMoveOps.count();
@@ -44,6 +45,17 @@ export async function seedPlatformData() {
 
   for (const o of opportunities) {
     await opportunitiesRepo.add(o);
+  }
+
+  const tasks = [
+    { title: 'Pack boxes', status: 'done', dueDate: '2026-01-10' },
+    { title: 'Book moving truck', status: 'doing', dueDate: '2026-01-12' },
+    { title: 'Update address', status: 'todo', dueDate: '2026-01-15' },
+    { title: 'Transfer utilities', status: 'todo', dueDate: '2026-01-20' },
+  ] as const;
+
+  for (const t of tasks) {
+    await tasksRepo.add(t);
   }
 
   await weeklyReviewsRepo.add({

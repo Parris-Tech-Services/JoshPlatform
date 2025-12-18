@@ -43,3 +43,15 @@ export interface PlatformWeeklyReview {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface PlatformTask {
+  id?: number;
+  title: string;
+  description?: string;
+  status: 'todo' | 'in-progress' | 'done';
+  priority?: 'low' | 'medium' | 'high';
+  dueDate?: string;
+  linkedDecisionId?: number;
+  createdAt: string;
+  updatedAt: string;
+}

@@ -7,6 +7,7 @@ export function PlatformLayout({ children }: { children: React.ReactNode }) {
 
   const tabs = [
     { name: "Overview", path: "/platform" },
+    { name: "Tasks", path: "/platform/tasks" },
     { name: "MoveOps", path: "/platform/moveops" },
     { name: "Decisions", path: "/platform/decisions" },
     { name: "Opportunities", path: "/platform/opportunities" },
