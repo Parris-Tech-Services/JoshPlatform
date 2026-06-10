@@ -1,0 +1,38 @@
+export const spotifyData = {
+  identity: {
+    displayName: "Joshua Parris",
+  },
+  subscribedShows: [
+    { name: "All-In with Chamath, Jason, Sacks & Friedberg", publisher: "All-In Podcast, LLC", uri: "spotify:show:2IqXAVFR4e0Bmyjsdc8QzF" },
+    { name: "Around the School Table", publisher: "Auscast Network", uri: "spotify:show:7fAVEYUWuocWeLFYZwrF0w" },
+    { name: "BibleProject", publisher: "BibleProject Podcast", uri: "spotify:show:6f2oD3RtQY1rOeyfF2OeOa" },
+    { name: "Code Story: Insights from Startup Tech Leaders", publisher: "Noah Labhart - Startup Founder & CTO", uri: "spotify:show:0f5HGQ2EPd63H83gqAifXp" },
+    { name: "Cornerstone Community Australia Podcast", publisher: "Joshua Parris", uri: "spotify:show:4k0Xkq24MwPrKFZLvn7Dt9" },
+    { name: "Darknet Diaries", publisher: "Jack Rhysider", uri: "spotify:show:4XPl3uEEL9hvqMkoZrzbx5" },
+    { name: "Lex Fridman Podcast", publisher: "Lex Fridman", uri: "spotify:show:2MAi0BvDc6GTFvKFPXnkCL" },
+    { name: "Low Tox Life", publisher: "Low Tox Life 2016", uri: "spotify:show:2LgWlBqfoPDM8Ixcg6lMJM" },
+    { name: "MIT Technology Review Narrated", publisher: "MIT Technology Review", uri: "spotify:show:6QefEeY1IKYVn5w6nUV83Y" },
+    { name: "Reply All", publisher: "Gimlet", uri: "spotify:show:7gozmLqbcbr6PScMjc0Zl4" },
+    { name: "The Joe Rogan Experience", publisher: "Joe Rogan", uri: "spotify:show:4rOoJ6Egrf8K2IrywzwOMk" },
+    { name: "The Leadership Podcast", publisher: "Jan Rutherford and Jim Vaselopulos", uri: "spotify:show:6OWNnsVUOHxJG15oIwbV5g" },
+    { name: "The Vergecast", publisher: "The Verge", uri: "spotify:show:08zQP2peZmM9GrcKShLZvC" },
+    { name: "The WAN Show", publisher: "Linus Tech Tips", uri: "spotify:show:5l8IBkxX6pgPPfEL6AI57O" },
+    { name: "WSJ Tech News Briefing", publisher: "The Wall Street Journal", uri: "spotify:show:51MrXc7hJQBE2WJf2g4aWN" },
+    { name: "Waveform: The MKBHD Podcast", publisher: "MKBHD", uri: "spotify:show:6o81QuW22s5m2nfcXWjucc" },
+    { name: "Where Should We Begin? with Esther Perel", publisher: "Esther Perel Global Media", uri: "spotify:show:3fKOTwtnX5oZLaiNntKWAV" },
+  ],
+  ownedShows: [
+    { showName: "Joshua and Kristy Parris Podcast", authorizationDate: "2025-03-06" },
+    { showName: "Cornerstone Community Australia Podcast", authorizationDate: "2024-10-15" },
+  ],
+  streamingHistory: [
+    { endTime: "2025-04-20 23:15", podcastName: "Huberman Lab", episodeName: "How to Unlock Your Potential, Motivation & Unique Abilities | Dr. Adam Grant", msPlayed: 1076 },
+    { endTime: "2025-05-21 13:13", podcastName: "The Louis Theroux Podcast", episodeName: "S5 EP3: Bryan Johnson discusses life-changing psychedelics, superintelligence, and night-time erections", msPlayed: 64989 },
+    { endTime: "2025-08-20 10:21", podcastName: "Lex Fridman Podcast", episodeName: "#473 – Iran War Debate: Nuclear Weapons, Trump, Peace, Power & the Middle East", msPlayed: 6026 },
+    { endTime: "2025-10-17 10:35", podcastName: "Around the School Table", episodeName: "Episode 1: Leigh Johnson - Failing Forward", msPlayed: 1861683 },
+    { endTime: "2025-10-17 10:46", podcastName: "Around the School Table", episodeName: "Episode 2: Nikki Bonus - The Data of Emotion", msPlayed: 605124 },
+    { endTime: "2025-11-26 20:27", podcastName: "Where Should We Begin? with Esther Perel", episodeName: "You Need Help to Help Her", msPlayed: 64190 },
+    { endTime: "2025-11-26 20:29", podcastName: "The Joe Rogan Experience", episodeName: "#2418 - Chris Williamson", msPlayed: 198899 },
+    { endTime: "2025-11-26 20:37", podcastName: "The Joe Rogan Experience", episodeName: "#2418 - Chris Williamson", msPlayed: 401057 },
+  ],
+};
