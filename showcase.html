@@ -49,6 +49,13 @@
 
   <div class="grid" id="apps"></div>
 
+  <div id="demoPanel" style="display:none;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:16px">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><strong style="flex:1">📝 Prototype Notes <span class="badge live">live demo</span></strong><button id="demoClose" style="background:none;border:1px solid var(--line);color:var(--text);border-radius:8px;padding:4px 10px;cursor:pointer">Close</button></div>
+    <p class="badge" style="border:none;color:var(--muted);padding:0 0 8px">A real, working mini-app embedded in the platform shell — notes saved to your browser.</p>
+    <div style="display:flex;gap:8px"><input id="noteIn" placeholder="Jot a quick note…" style="flex:1;background:#0f1420;border:1px solid var(--line);color:var(--text);border-radius:8px;padding:10px"><button id="noteAdd" style="background:var(--accent);border:none;color:#04122a;font-weight:700;border-radius:8px;padding:10px 16px;cursor:pointer">Add</button></div>
+    <div id="noteList" style="margin-top:12px"></div>
+  </div>
+
   <footer>
     Repo: <a href="https://github.com/joshuaparris-max/JoshPlatform">joshuaparris-max/JoshPlatform</a>
     · See <a href="STATUS.md">STATUS.md</a> for what works now.
@@ -58,7 +65,7 @@
 const APPS=[
   { icon:'🪞', name:'Reflection Tool', status:'prototype', desc:'A short guided reflection — capture a thought, name a feeling, choose a next step.', link:'/platform/reviews' },
   { icon:'🗂️', name:'Mini Task Board', status:'prototype', desc:'A tiny board for the few tasks that actually matter today.', link:'/platform/tasks' },
-  { icon:'📝', name:'Prototype Notes', status:'idea', desc:'Scratch notes for in-progress experiments and UI patterns.', link:'' },
+  { icon:'📝', name:'Prototype Notes', status:'live', desc:'A working scratch-notes mini-app — try it right here in the platform shell.', demo:true },
 ];
 const out=document.getElementById('apps');
 APPS.forEach(a=>{
@@ -66,9 +73,19 @@ APPS.forEach(a=>{
   d.innerHTML=`<div class="icon">${a.icon}</div>
     <h3>${a.name} <span class="badge ${a.status}">${a.status}</span></h3>
     <p>${a.desc}</p>
-    ${a.link?`<a href="${a.link}">Open in app</a>`:`<a class="disabled">Coming soon</a>`}`;
+    ${a.demo?`<a href="#" data-demo="1">Launch demo ▸</a>`:a.link?`<a href="${a.link}">Open in app</a>`:`<a class="disabled">Coming soon</a>`}`;
+  if(a.demo) d.querySelector('[data-demo]').onclick=e=>{ e.preventDefault(); document.getElementById('demoPanel').style.display='block'; document.getElementById('demoPanel').scrollIntoView({behavior:'smooth'}); };
   out.appendChild(d);
 });
+// working Prototype Notes mini-app
+const NKEY='joshplatform_notes';
+const notes=()=>{ try{ return JSON.parse(localStorage.getItem(NKEY))||[]; }catch(e){ return []; } };
+function renderNotes(){ const l=notes(); const el=document.getElementById('noteList'); el.innerHTML=l.length?l.map((n,i)=>`<div style="display:flex;gap:8px;align-items:center;border-bottom:1px solid var(--line);padding:8px 0"><span style="flex:1">${n.replace(/[<>&]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]))}</span><button data-d="${i}" style="background:none;border:none;color:var(--muted);cursor:pointer">✕</button></div>`).join(''):'<p class="badge" style="border:none;color:var(--muted);padding:6px 0">No notes yet.</p>'; el.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{ const l=notes(); l.splice(+b.dataset.d,1); localStorage.setItem(NKEY,JSON.stringify(l)); renderNotes(); }); }
+function addNote(){ const i=document.getElementById('noteIn'); const v=i.value.trim(); if(!v)return; const l=notes(); l.unshift(v); localStorage.setItem(NKEY,JSON.stringify(l)); i.value=''; renderNotes(); }
+document.getElementById('noteAdd').onclick=addNote;
+document.getElementById('noteIn').addEventListener('keydown',e=>{ if(e.key==='Enter') addNote(); });
+document.getElementById('demoClose').onclick=()=>document.getElementById('demoPanel').style.display='none';
+renderNotes();
 </script>
 </body>
 </html>
