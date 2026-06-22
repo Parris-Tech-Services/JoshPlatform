@@ -1,53 +1,42 @@
-# JoshPlatform
+# 🧩 JoshPlatform — Mini App Platform / Experiment Runtime
 
-> **Status: Experimental platform scaffold (frontend only).**
+A lightweight platform for **launching and documenting mini-apps**: one shell for small
+prototypes, reusable UI patterns, and personal tools — instead of a new repo per idea. Each
+"app" is a self-contained module carrying a **status badge** so it's clear what's finished, a
+prototype, or just an idea.
 
-A personal "life/work platform" started on Replit. The **React + Vite client** is present and
-organised around a set of productivity areas; the backend referenced by the build scripts is
-**not included in this repository yet**, so the app is currently a UI scaffold rather than a
-running full-stack product.
+## Two front doors
 
-## What it's intended to be
+- **`showcase.html`** — a static landing page that explains the platform and lists demo apps
+  with status badges (Reflection Tool, Mini Task Board, Prototype Notes). Open it directly.
+- **React + Vite app** (`client/`) — the richer interactive runtime with platform routes
+  (dashboard, tasks, reviews, decisions, opportunities, social).
 
-A single hub bringing together several personal-ops areas. The client defines routes for:
+## Demo apps
 
-- **Platform dashboard** (`/platform`)
-- **Tasks** (`/platform/tasks`)
-- **Move ops** (`/platform/moveops`) — moving/relocation operations
-- **Decisions** (`/platform/decisions`)
-- **Opportunities** (`/platform/opportunities`)
-- **Weekly reviews** (`/platform/reviews`)
-- **Social** (`/social`)
+| App | Status | What it is |
+|---|---|---|
+| Reflection Tool | prototype | Short guided reflection → next step |
+| Mini Task Board | prototype | The few tasks that matter today |
+| Prototype Notes | idea | Scratch notes for experiments |
 
-## Honest current state
-
-- ✅ Front end: React 18, Vite, Wouter routing, TanStack Query, shadcn/ui components.
-- ⚠️ Back end: `package.json` scripts reference an Express server (`server/index.ts`),
-  a build script (`script/build.ts`), and Drizzle ORM (`drizzle-kit push`) — **none of these
-  files are in the repo**. So `dev`, `build`, `start`, and `db:push` will not run as-is.
-- The package is still named `rest-express` (the Replit starter name).
-
-## How to run (client only)
-
-The client can be built/previewed on its own:
+## Run
 
 ```bash
 npm install
-npm run build:client   # vite build
-# or run vite directly against the client/ folder for a dev preview
+npm run build:client     # builds the Vite client to dist/  (verified: builds clean)
+# static landing:
+python -m http.server 8000   # then open /showcase.html
 ```
 
-Full `npm run dev` / `npm run build` require the missing server code to be restored first.
+> The `dev`/`build` scripts reference an Express server (`server/index.ts`) that isn't in the
+> repo yet, so use `build:client` for the front end. See STATUS.md.
 
-## Cleanup done in this pass
+## Hygiene
 
-- Removed committed **Replit local state** (`.local/state/...`) and added it to `.gitignore`.
-- Hardened `.gitignore` to exclude Replit state, `.env*`, caches, build outputs, logs, and
-  dependencies.
+Replit local state (`.local/`) and build artifacts are removed from tracking and ignored via
+`.gitignore` (`.local/`, `.env`, `node_modules`, `dist`, caches, logs).
 
-## Sensible next steps
+## Status
 
-- Decide whether to restore the Express/Drizzle backend or convert this to a static
-  client-only app.
-- Rename the package from `rest-express` to `joshplatform`.
-- Add `.env.example` if/when the backend and a database are reintroduced.
+See [STATUS.md](STATUS.md).
