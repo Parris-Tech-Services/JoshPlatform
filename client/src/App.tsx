@@ -1,4 +1,4 @@
-import { Switch, Route } from "wouter";
+import { Switch, Route, Router as WouterRouter } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -13,12 +13,12 @@ import OpportunitiesPage from "@/pages/platform/opportunities";
 import WeeklyReviewsPage from "@/pages/platform/reviews";
 import SocialPage from "@/pages/social/index";
 
-function Router() {
+function AppRoutes() {
   return (
     <Switch>
       {/* Home */}
       <Route path="/" component={HomePage} />
-      
+
       {/* Platform Routes */}
       <Route path="/platform" component={PlatformDashboard} />
       <Route path="/platform/tasks" component={PlatformTasksPage} />
@@ -33,6 +33,19 @@ function Router() {
       {/* 404 */}
       <Route component={NotFound} />
     </Switch>
+  );
+}
+
+function Router() {
+  const baseUrl = import.meta.env.BASE_URL;
+  const base = baseUrl === "/" ? undefined : baseUrl.replace(/\/$/, "");
+
+  return base ? (
+    <WouterRouter base={base}>
+      <AppRoutes />
+    </WouterRouter>
+  ) : (
+    <AppRoutes />
   );
 }
 
