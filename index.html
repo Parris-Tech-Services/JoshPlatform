@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>JoshPlatform — Mini App Platform</title>
+<meta name="description" content="JoshPlatform mini app platform and experiment runtime">
+<style>
+  :root { --bg:#0c0f16; --card:#141a26; --line:#243049; --text:#e7edf8; --muted:#9aa7c0; --accent:#6aa0ff; --live:#6ee7a8; --proto:#ffd166; }
+  * { box-sizing:border-box; }
+  html,body { margin:0; min-height:100%; }
+  body { font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif; background:radial-gradient(circle at 50% -10%,#15203a,#0c0f16); color:var(--text); padding:0 16px 96px; line-height:1.6; }
+  .wrap { max-width:860px; margin:0 auto; }
+  header { text-align:center; padding:34px 0 6px; }
+  header h1 { font-size:clamp(2rem,7vw,3rem); margin:0; }
+  header p { color:var(--muted); max-width:620px; margin:8px auto 0; }
+  .what,.app { background:var(--card); border:1px solid var(--line); border-radius:14px; }
+  .what { padding:18px 20px; margin:20px 0; }
+  .what h2 { font-size:1.05rem; margin:0 0 6px; }
+  .what p { color:var(--muted); font-size:.94rem; margin:0; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; }
+  .app { padding:18px; display:flex; flex-direction:column; }
+  .app .icon { font-size:1.8rem; }
+  .app h3 { font-size:1.1rem; margin:6px 0; display:flex; align-items:center; gap:8px; }
+  .app p { color:var(--muted); font-size:.9rem; flex:1; }
+  .badge { font-size:.64rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; padding:2px 8px; border-radius:999px; }
+  .badge.live { color:var(--live); border:1px solid var(--live); }
+  .badge.prototype { color:var(--proto); border:1px solid var(--proto); }
+  .app a,.button { margin-top:10px; text-align:center; text-decoration:none; background:var(--accent); color:#04122a; font-weight:700; border:0; border-radius:9px; padding:10px 12px; font-size:.9rem; cursor:pointer; }
+  footer { text-align:center; color:var(--muted); font-size:.82rem; margin-top:24px; }
+  footer a { color:var(--accent); }
+
+  #podcastButton { position:fixed; left:50%; bottom:max(14px,env(safe-area-inset-bottom)); transform:translateX(-50%); z-index:2147483000; border:1px solid #52627e; border-radius:999px; background:#111827; color:#fff; box-shadow:0 12px 34px #0009; padding:13px 20px; font:750 15px/1.2 system-ui,-apple-system,Segoe UI,sans-serif; cursor:pointer; }
+  #podcastPanel { position:fixed; left:50%; bottom:max(72px,calc(env(safe-area-inset-bottom) + 62px)); transform:translateX(-50%); z-index:2147483001; width:min(620px,calc(100vw - 20px)); padding:14px; border:1px solid #52627e; border-radius:18px; background:#0f172a; color:#fff; box-shadow:0 20px 60px #000b; }
+  #podcastPanel[hidden] { display:none!important; }
+  #podcastPanel h2 { margin:0 42px 4px 0; font-size:1rem; line-height:1.35; }
+  #podcastMeta { margin:0 0 10px; color:#cbd5e1; font-size:.78rem; }
+  #podcastFrame { width:100%; height:152px; border:0; border-radius:12px; background:#111827; }
+  #podcastClose { position:absolute; right:10px; top:10px; width:34px; height:34px; border:1px solid #475569; border-radius:50%; background:#1e293b; color:#fff; font-size:20px; cursor:pointer; }
+  .podcast-actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+  .podcast-actions button,.podcast-actions a { border:1px solid #475569; border-radius:10px; background:#1e293b; color:#fff; padding:9px 11px; font:inherit; text-decoration:none; cursor:pointer; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>🧩 JoshPlatform</h1>
+    <p>A lightweight mini-app platform / experiment runtime — one shell for small prototypes, reusable UI patterns, and personal tools.</p>
+  </header>
+
+  <section class="what">
+    <h2>What this platform is for</h2>
+    <p>JoshPlatform is one tidy place to spin up and document small experiments. Each mini-app carries a clear status so it is obvious what is live, what is a prototype, and what is still an idea.</p>
+  </section>
+
+  <div class="grid">
+    <article class="app"><div class="icon">🪞</div><h3>Reflection Tool <span class="badge prototype">prototype</span></h3><p>Short guided reflection → next step.</p></article>
+    <article class="app"><div class="icon">🗂️</div><h3>Mini Task Board <span class="badge prototype">prototype</span></h3><p>A tiny board for the few tasks that actually matter today.</p></article>
+    <article class="app"><div class="icon">📝</div><h3>Prototype Notes <span class="badge live">live</span></h3><p>A small browser-saved scratchpad for experiments.</p><button class="button" id="notesOpen" type="button">Open notes</button></article>
+  </div>
+
+  <section id="notesPanel" class="what" hidden>
+    <h2>📝 Prototype Notes</h2>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><input id="noteIn" placeholder="Jot a quick note…" style="flex:1;min-width:180px;background:#0f1420;border:1px solid var(--line);color:var(--text);border-radius:8px;padding:10px"><button id="noteAdd" class="button" style="margin:0">Add</button></div>
+    <div id="noteList" style="margin-top:12px"></div>
+  </section>
+
+  <footer>Source: <a href="https://github.com/joshuaparris-max/JoshPlatform">joshuaparris-max/JoshPlatform</a></footer>
+</div>
+
+<button id="podcastButton" type="button" aria-expanded="false">🎧 Podcasts</button>
+<section id="podcastPanel" hidden aria-label="Software podcast player">
+  <button id="podcastClose" type="button" aria-label="Close podcast player">×</button>
+  <h2 id="podcastTitle">Software podcast</h2>
+  <p id="podcastMeta">Spotify playback starts when you press play in the player.</p>
+  <iframe id="podcastFrame" title="Spotify software podcast episode" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+  <div class="podcast-actions">
+    <button id="podcastNext" type="button">Different podcast</button>
+    <a id="podcastOpen" href="https://open.spotify.com/" target="_blank" rel="noopener noreferrer">Open in Spotify ↗</a>
+  </div>
+</section>
+
+<script>
+(() => {
+  const episodes = [
+    {id:'2AjHaZdJlugx8ToRQvC74W',title:'Can AI Agents Replace Software Engineers?',show:'Code & Conquer'},
+    {id:'2C5V6EbER29dmsK7uMEQSp',title:'Stop Building AI Agents: Build Harnesses Instead',show:'Domesticating AI'},
+    {id:'5r014TXh9wQVpKYtSR5p8n',title:'Context as Code, DevX as Leverage: Multi-Agent Workflows',show:'AI Engineering Podcast'},
+    {id:'1RpaLUNXw30608UQ3iXOJH',title:'Specs, Tests, Self-Verification',show:'AI Engineering Podcast'},
+    {id:'4Cf7GiNyzSgRnOzW58FaLE',title:'Amjad Masad on Vibe Coding and AI Agents',show:'Masters of Scale'},
+    {id:'0gzbMHPi1PA2negrqK8EWN',title:'Agentic Software Engineering',show:'Machine Learning Guide'},
+    {id:'2vM2pCWzkaBz5bQTqlVUd8',title:'How AI Coding Agents Will Change Your Job',show:'Y Combinator'},
+    {id:'36GIDcIv7lWxsiBLdl1ti8',title:'Top Tier Engineers vs AI Agents',show:'Beyond Coding'},
+    {id:'25IQAylQc0asRxmfrItTdM',title:'Exploring AI Agent Platforms',show:'Thoughtworks Technology Podcast'},
+    {id:'6McSW4VQ0S3z3KITmCbGFG',title:'Coding Agents, Chaos and the Future of Dev Work',show:'Screaming in the Cloud'}
+  ];
+  const button=document.getElementById('podcastButton');
+  const panel=document.getElementById('podcastPanel');
+  const frame=document.getElementById('podcastFrame');
+  const title=document.getElementById('podcastTitle');
+  const meta=document.getElementById('podcastMeta');
+  const open=document.getElementById('podcastOpen');
+  let current=-1;
+  function choose(){ let i=Math.floor(Math.random()*episodes.length); if(episodes.length>1&&i===current)i=(i+1)%episodes.length; current=i; const ep=episodes[i]; title.textContent=ep.title; meta.textContent=ep.show; frame.src=`https://open.spotify.com/embed/episode/${ep.id}?theme=0`; open.href=`https://open.spotify.com/episode/${ep.id}`; }
+  button.onclick=()=>{ if(current<0)choose(); panel.hidden=false; button.setAttribute('aria-expanded','true'); };
+  document.getElementById('podcastClose').onclick=()=>{ panel.hidden=true; button.setAttribute('aria-expanded','false'); };
+  document.getElementById('podcastNext').onclick=choose;
+
+  const NKEY='joshplatform_notes';
+  const notes=()=>{try{return JSON.parse(localStorage.getItem(NKEY))||[]}catch{return[]}};
+  function renderNotes(){const l=notes(),el=document.getElementById('noteList');el.innerHTML=l.length?l.map((n,i)=>`<div style="display:flex;gap:8px;align-items:center;border-bottom:1px solid var(--line);padding:8px 0"><span style="flex:1">${n.replace(/[<>&]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]))}</span><button data-d="${i}" style="background:none;border:none;color:var(--muted);cursor:pointer">✕</button></div>`).join(''):'<p style="color:var(--muted)">No notes yet.</p>';el.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{const l=notes();l.splice(+b.dataset.d,1);localStorage.setItem(NKEY,JSON.stringify(l));renderNotes();});}
+  function addNote(){const i=document.getElementById('noteIn'),v=i.value.trim();if(!v)return;const l=notes();l.unshift(v);localStorage.setItem(NKEY,JSON.stringify(l));i.value='';renderNotes();}
+  document.getElementById('notesOpen').onclick=()=>{const p=document.getElementById('notesPanel');p.hidden=!p.hidden;if(!p.hidden)p.scrollIntoView({behavior:'smooth'});};
+  document.getElementById('noteAdd').onclick=addNote;
+  document.getElementById('noteIn').addEventListener('keydown',e=>{if(e.key==='Enter')addNote();});
+  renderNotes();
+})();
+</script>
+</body>
+</html>
