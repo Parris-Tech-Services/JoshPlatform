@@ -1,8 +1,9 @@
 name: Deploy client to GitHub Pages
 
+# Kept as a manual fallback only. The public JoshPlatform site is served
+# directly from main/index.html so GitHub's branch-based Pages build and this
+# artifact deployment cannot race each other.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -11,7 +12,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: pages-client-manual
   cancel-in-progress: true
 
 jobs:
@@ -33,8 +34,6 @@ jobs:
         run: npm run build:client
       - name: Configure Pages
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
