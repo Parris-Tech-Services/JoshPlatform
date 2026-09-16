@@ -6,8 +6,10 @@ import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const isGitHubPages = process.env.GITHUB_PAGES === "true";
 
 export default defineConfig({
+  base: isGitHubPages ? "/JoshPlatform/" : "/",
   plugins: [react(), tailwindcss()],
   root: "client",
   resolve: {
