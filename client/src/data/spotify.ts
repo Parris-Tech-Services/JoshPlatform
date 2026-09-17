@@ -22,7 +22,7 @@ export const spotifyData = {
     { name: "Where Should We Begin? with Esther Perel", publisher: "Esther Perel Global Media", uri: "spotify:show:3fKOTwtnX5oZLaiNntKWAV" },
   ],
   ownedShows: [
-    { showName: "Joshua and REDACTED Podcast", authorizationDate: "2025-03-06" },
+    { showName: "Sample Family Podcast", authorizationDate: "2025-03-06" },
     { showName: "Cornerstone Community Australia Podcast", authorizationDate: "2024-10-15" },
   ],
   streamingHistory: [
